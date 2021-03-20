@@ -1,0 +1,1 @@
+1) why cant I get the result value when using query selector and getElementByTag (using a single element work) 
