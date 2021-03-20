@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(to left, rgb(51, 255, 0),blue);
+    background-image: linear-gradient(to left, rgba(255, 0, 0, 0.883),blue);
 }
 
 button{
@@ -15,12 +15,13 @@ button{
     outline: none;
 }
 button:hover{
-    background-color: rgb(67, 75, 80);
+    background-color: rgb(51, 255, 0);
     transition-duration: 0.3s;
+    cursor: pointer;
 }
 
 #calculator{
-    background-color: rgba(128, 33, 141, 0.548);
+    background-color: rgba(8, 252, 41, 0.507);
     justify-items: center;
     margin: auto;
     margin-top: 50px;

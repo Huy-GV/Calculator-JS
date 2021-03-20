@@ -4,103 +4,105 @@ const operationKeys = document.querySelectorAll('.operation');
 const calculateKey = document.querySelector('#calculate');
 const deleteKey = document.querySelector('#delete');
 const calculatorDisplay = document.querySelector("#result-container").querySelector("p");
+
+
 class Calculator{
     constructor(){
-        this.savedValue = this.currentValue = this.operation = null;
+        this.savedOperand = this.currentOperand = this.operation = null;
         this.newCalculation = true;
-
     }
 
     delete(){
-        this.savedValue = this.currentValue = this.operation = null;
+        this.savedOperand = this.currentOperand = this.operation = null;
     }
 
     appendNumber(number){
-        if (this.currentValue == null || this.newCalculation){
-            this.currentValue = number;
+        if (this.currentOperand == null || this.newCalculation){
+            this.currentOperand = number;
             this.newCalculation = false;
         }else {
-            this.currentValue = this.currentValue.concat(number);
+            this.currentOperand = this.currentOperand.concat(number);
         }
     }
 
     chooseOperation(operation){
-        if (this.savedValue == null){
-            //push the current value to the previous one
-            //make the current one empty
-            //display the previous one
-            this.savedValue = this.currentValue;
-            this.currentValue = null
+        if (this.savedOperand == null){
+            /*
+            push the current operand to the previous one
+            make the current one empty
+            */
+            this.savedOperand = this.currentOperand;
+            this.currentOperand = null
             this.operation = operation;
         }
         else{
-            //cannot push the current value, so calculate the previous operation
-            //the previous value will be the result, while the current value will be null
-            this.savedValue = this.calculate();
-            this.currentValue = null;
+            /*
+            cannot push the current operand to the saved one, so calculate the previous operation
+            the result of that operation will be saved to savedOperand, while the current operand will be null and used
+            to accommodate new input
+            */
+            this.savedOperand = this.calculate();
+            this.currentOperand = null;
             this.operation = operation;
         }  
     }
 
     calculate(){
-        if (!(this.currentValue == null && this.savedValue == null && this.operation != null))
+        if (!(this.currentOperand == null && this.savedOperand == null && this.operation != null))
         {
             switch(this.operation)
             {
                 case "+":
-                    return String(Number(this.currentValue) + Number(this.savedValue));
+                    return String(Number(this.currentOperand) + Number(this.savedOperand));
                 case "-":
-                    return String(Number(this.savedValue) - Number(this.currentValue));
+                    return String(Number(this.savedOperand) - Number(this.currentOperand));
                 case "x":
-                    return String(Number(this.currentValue) * Number(this.savedValue));
+                    return String(Number(this.currentOperand) * Number(this.savedOperand));
                 case "%":
-                    return String(Number(this.savedValue) / Number(this.currentValue));
+                    return String(Number(this.savedOperand) / Number(this.currentOperand));
                 default:
                     return;
             }
-            
         }
     }
 
 
     debug(){
-        console.log("first val: "+this.savedValue);
-        console.log("sec val: "+this.currentValue);
+        console.log("first op: "+this.savedOperand);
+        console.log("sec op: "+this.currentOperand);
+        console.log("operation: "+this.operation);
+        console.log("new calculation: "+this.newCalculation);
     }
 }
 
-const calculator = new Calculator();
-
-
-//assigning the number to currentValue
+const myCalculator = new Calculator();
 numberKeys.forEach(key => {
+    //compared to 'onclick', addEventListener allows multiple events for a single element
     key.addEventListener('click', ()=>{
-        calculator.appendNumber(key.innerText);
-        calculatorDisplay.innerText = calculator.currentValue;
-        calculator.debug();
+        myCalculator.appendNumber(key.innerText);
+        calculatorDisplay.innerText = myCalculator.currentOperand;
+        myCalculator.debug();
     })
 })
 
 operationKeys.forEach(key => {
     key.addEventListener('click', ()=>{
-        console.log(key.innerHTML);
-        calculator.chooseOperation(key.innerHTML);
-        calculatorDisplay.innerText = calculator.savedValue;
-
-        calculator.debug();
+        myCalculator.chooseOperation(key.innerHTML);
+        calculatorDisplay.innerText = myCalculator.savedOperand;
+        myCalculator.debug();
     })
 })
 
 calculateKey.addEventListener('click', () => {
-    if (!(calculator.savedValue == null || calculator.currentValue == null || calculator.operation == null)){
-        calculatorDisplay.innerText = calculator.currentValue = calculator.calculate();
-        calculator.savedValue = null;
-        calculator.newCalculation = true;
+    if (!(myCalculator.savedOperand == null || myCalculator.currentOperand == null || myCalculator.operation == null)){
+        calculatorDisplay.innerText = myCalculator.currentOperand = myCalculator.calculate();
+        myCalculator.savedOperand = null;
+        myCalculator.newCalculation = true;
     }
-    calculator.debug();
+    myCalculator.debug();
 })
 
 deleteKey.addEventListener('click', () => {
-    calculator.delete();
+    myCalculator.delete();
     calculatorDisplay.innerText = null;
 })
