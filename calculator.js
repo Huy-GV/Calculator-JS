@@ -12,7 +12,7 @@ class Calculator{
         this.newCalculation = true;
     }
 
-    delete(){
+    clearOperands(){
         this.savedOperand = this.currentOperand = this.operation = null;
     }
 
@@ -69,7 +69,12 @@ class Calculator{
     updateOutput(){
         myCalculator.currentOperand = myCalculator.calculate();
         myCalculator.savedOperand = null;
-        myCalculator.newCalculation = true; //prevent the user from adding digits to the calculated result
+        /*
+        prevent the user from adding digits to the calculated result,
+        if the user enters an operation and inputs new digits, this will be set
+        to false so that new digits can be appended to the current number
+        */
+        myCalculator.newCalculation = true; 
     }
 
     debug(){
@@ -107,6 +112,6 @@ calculateKey.addEventListener('click', () => {
 })
 
 deleteKey.addEventListener('click', () => {
-    myCalculator.delete();
+    myCalculator.clearOperands();
     calculatorDisplay.innerText = null;
 })
