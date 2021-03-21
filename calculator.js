@@ -37,9 +37,9 @@ class Calculator{
         }
         else{
             /*
-            cannot push the current operand to the saved one, so calculate the previous operation,
-            the result of that operation will be saved to savedOperand, while the current operand will be null and used
-            to accommodate new input
+            cannot push the current operand to the saved one, so calculate the existing operands,
+            the result of that calculation will be saved to savedOperand, while the current operand will be made null and used
+            to accommodate new inputs
             */
             this.savedOperand = this.calculate();
             this.currentOperand = null;
@@ -71,17 +71,17 @@ class Calculator{
         myCalculator.savedOperand = null;
         /*
         prevent the user from adding digits to the calculated result,
-        if the user enters an operation and inputs new digits, this will be set
-        to false so that new digits can be appended to the current number
+        if the user chooses an operation and inputs a new digit, this will be set
+        to false so that additional digits can be appended to the current one
         */
         myCalculator.newCalculation = true; 
     }
 
     debug(){
-        console.log("first op: "+this.savedOperand);
-        console.log("sec op: "+this.currentOperand);
-        console.log("operation: "+this.operation);
-        console.log("new calculation: "+this.newCalculation);
+        console.log("first op: "+ this.savedOperand);
+        console.log("sec op: "+ this.currentOperand);
+        console.log("operation: "+ this.operation);
+        console.log("new calculation: "+ this.newCalculation);
     }
 }
 
