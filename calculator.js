@@ -25,7 +25,7 @@ class Calculator{
         }
     }
 
-    chooseOperation(operation){
+    enterOperation(operation){
         if (this.savedOperand == null){
             /*
             push the current operand to the previous one
@@ -37,7 +37,7 @@ class Calculator{
         }
         else{
             /*
-            cannot push the current operand to the saved one, so calculate the previous operation
+            cannot push the current operand to the saved one, so calculate the previous operation,
             the result of that operation will be saved to savedOperand, while the current operand will be null and used
             to accommodate new input
             */
@@ -87,7 +87,7 @@ numberKeys.forEach(key => {
 
 operationKeys.forEach(key => {
     key.addEventListener('click', ()=>{
-        myCalculator.chooseOperation(key.innerHTML);
+        myCalculator.enterOperation(key.innerHTML);
         calculatorDisplay.innerText = myCalculator.savedOperand;
         myCalculator.debug();
     })
