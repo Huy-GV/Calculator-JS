@@ -38,8 +38,7 @@ class Calculator{
         else{
             /*
             cannot push the current operand to the saved one, so calculate the existing operands,
-            the result of that calculation will be saved to savedOperand, while the current operand will be made null and used
-            to accommodate new inputs
+            the result of that calculation will be saved to savedOperand, while the current operand will be made null and used to accommodate new inputs
             */
             this.savedOperand = this.calculate();
             this.currentOperand = null;
@@ -56,9 +55,9 @@ class Calculator{
                     return String(Number(this.currentOperand) + Number(this.savedOperand));
                 case "-":
                     return String(Number(this.savedOperand) - Number(this.currentOperand));
-                case "x":
+                case "×":
                     return String(Number(this.currentOperand) * Number(this.savedOperand));
-                case "%":
+                case "÷":
                     return String(Number(this.savedOperand) / Number(this.currentOperand));
                 default:
                     return;
