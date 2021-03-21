@@ -66,6 +66,11 @@ class Calculator{
         }
     }
 
+    updateOutput(){
+        myCalculator.currentOperand = myCalculator.calculate();
+        myCalculator.savedOperand = null;
+        myCalculator.newCalculation = true; //prevent the user from adding digits to the calculated result
+    }
 
     debug(){
         console.log("first op: "+this.savedOperand);
@@ -95,9 +100,8 @@ operationKeys.forEach(key => {
 
 calculateKey.addEventListener('click', () => {
     if (!(myCalculator.savedOperand == null || myCalculator.currentOperand == null || myCalculator.operation == null)){
-        calculatorDisplay.innerText = myCalculator.currentOperand = myCalculator.calculate();
-        myCalculator.savedOperand = null;
-        myCalculator.newCalculation = true;
+        myCalculator.updateOutput();
+        calculatorDisplay.innerText = myCalculator.currentOperand;
     }
     myCalculator.debug();
 })
