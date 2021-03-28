@@ -1,10 +1,13 @@
 "use strict"
+
+
 const numberKeys = document.querySelectorAll('.number');
 const operationKeys = document.querySelectorAll('.operation');
-const calculateKey = document.querySelector('#calculate');
-const deleteKey = document.querySelector('#delete');
-const calculatorDisplay = document.querySelector("#result-container").querySelector("p");
+const calculateKey = document.getElementById('calculate');
+const deleteKey = document.getElementById('delete');
 
+// const calculatorDisplay = document.getElementById("result-container").getElementsByTagName("p"); //(faster)
+const calculatorDisplay = document.querySelector("#result-container p");
 
 class Calculator{
     constructor(){
@@ -75,22 +78,16 @@ class Calculator{
         */
         myCalculator.newCalculation = true; 
     }
-
-    debug(){
-        console.log("first op: "+ this.savedOperand);
-        console.log("sec op: "+ this.currentOperand);
-        console.log("operation: "+ this.operation);
-        console.log("new calculation: "+ this.newCalculation);
-    }
 }
 
 const myCalculator = new Calculator();
+// forEach works with querySelectorAll
 numberKeys.forEach(key => {
     //compared to 'onclick', addEventListener allows multiple events for a single element
     key.addEventListener('click', ()=>{
         myCalculator.appendNumber(key.innerText);
         calculatorDisplay.innerText = myCalculator.currentOperand;
-        myCalculator.debug();
+        debug();
     })
 })
 
@@ -98,7 +95,7 @@ operationKeys.forEach(key => {
     key.addEventListener('click', ()=>{
         myCalculator.enterOperation(key.innerHTML);
         calculatorDisplay.innerText = myCalculator.savedOperand;
-        myCalculator.debug();
+        debug();
     })
 })
 
@@ -107,10 +104,19 @@ calculateKey.addEventListener('click', () => {
         myCalculator.updateOutput();
         calculatorDisplay.innerText = myCalculator.currentOperand;
     }
-    myCalculator.debug();
+    debug();
 })
 
 deleteKey.addEventListener('click', () => {
     myCalculator.clearOperands();
     calculatorDisplay.innerText = null;
 })
+
+
+function debug(){
+    console.log("first op: "+ myCalculator.savedOperand);
+    console.log("sec op: "+ myCalculator.currentOperand);
+    console.log("operation: "+ myCalculator.operation);
+    console.log("new calculation: "+ myCalculator.newCalculation);
+    console.log("");
+}
