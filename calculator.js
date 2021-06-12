@@ -1,4 +1,6 @@
 "use strict"
+
+
 const numberKeys = document.querySelectorAll('.number');
 const operationKeys = document.querySelectorAll('.operation');
 const calculateKey = document.getElementById('calculate');
