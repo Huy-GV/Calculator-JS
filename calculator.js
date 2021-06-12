@@ -1,16 +1,24 @@
 "use strict"
 const numberKeys = document.querySelectorAll('.number');
 const operationKeys = document.querySelectorAll('.operation');
-const calculateKey = document.querySelector('#calculate');
-const deleteKey = document.querySelector('#delete');
-const calculatorDisplay = document.querySelector("#result-container").querySelector("p");
+const calculateKey = document.getElementById('calculate');
+const deleteKey = document.getElementById('delete');
 
+// const calculatorDisplay = document.getElementById("result-container").getElementsByTagName("p"); //(faster)
+const calculatorDisplay = document.querySelector("#result-container p");
 
 class Calculator{
     constructor(){
         this.savedOperand = this.currentOperand = this.operation = null;
         this.newCalculation = true;
+        this.operators = Object.freeze({
+            ADD: '+',
+            SUBTRACT: '-',
+            MULTIPLY: '×',
+            DIVIDE: '÷'
+        })
     }
+
 
     clearOperands(){
         this.savedOperand = this.currentOperand = this.operation = null;
@@ -51,16 +59,16 @@ class Calculator{
         {
             switch(this.operation)
             {
-                case "+":
+                case this.operators.ADD:
                     return String(Number(this.currentOperand) + Number(this.savedOperand));
-                case "-":
+                case this.operators.SUBTRACT:
                     return String(Number(this.savedOperand) - Number(this.currentOperand));
-                case "×":
+                case this.operators.MULTIPLY:
                     return String(Number(this.currentOperand) * Number(this.savedOperand));
-                case "÷":
+                case this.operators.DIVIDE:
                     return String(Number(this.savedOperand) / Number(this.currentOperand));
                 default:
-                    return;
+                    throw new Error("Unknown operator");
             }
         }
     }
@@ -69,28 +77,30 @@ class Calculator{
         myCalculator.currentOperand = myCalculator.calculate();
         myCalculator.savedOperand = null;
         /*
-        prevent the user from adding digits to the calculated result,
-        if the user chooses an operation and inputs a new digit, this will be set
+        prevent the user from appending digits to the calculated result,
+        if the user chooses an operation and enters a new digit, this will be set
         to false so that additional digits can be appended to the current one
         */
         myCalculator.newCalculation = true; 
     }
+}
 
-    debug(){
-        console.log("first op: "+ this.savedOperand);
-        console.log("sec op: "+ this.currentOperand);
-        console.log("operation: "+ this.operation);
-        console.log("new calculation: "+ this.newCalculation);
-    }
+function debug(calculator){
+    console.log("saved op: " + calculator.savedOperand);
+    console.log("current op: " + calculator.currentOperand);
+    console.log("operation: " + calculator.operation);
+    console.log("new calculation: " + calculator.newCalculation);
+    console.log("");
 }
 
 const myCalculator = new Calculator();
+// forEach works with querySelectorAll
 numberKeys.forEach(key => {
     //compared to 'onclick', addEventListener allows multiple events for a single element
     key.addEventListener('click', ()=>{
         myCalculator.appendNumber(key.innerText);
         calculatorDisplay.innerText = myCalculator.currentOperand;
-        myCalculator.debug();
+        debug(myCalculator);
     })
 })
 
@@ -98,16 +108,18 @@ operationKeys.forEach(key => {
     key.addEventListener('click', ()=>{
         myCalculator.enterOperation(key.innerHTML);
         calculatorDisplay.innerText = myCalculator.savedOperand;
-        myCalculator.debug();
+        debug(myCalculator);
     })
 })
 
 calculateKey.addEventListener('click', () => {
-    if (!(myCalculator.savedOperand == null || myCalculator.currentOperand == null || myCalculator.operation == null)){
+    if (myCalculator.savedOperand || 
+        myCalculator.currentOperand|| 
+        myCalculator.operation){
         myCalculator.updateOutput();
         calculatorDisplay.innerText = myCalculator.currentOperand;
     }
-    myCalculator.debug();
+    debug(myCalculator);
 })
 
 deleteKey.addEventListener('click', () => {
