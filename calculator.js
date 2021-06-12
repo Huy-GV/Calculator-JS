@@ -21,7 +21,6 @@ class Calculator{
         })
     }
 
-
     clearOperands(){
         this.savedOperand = this.currentOperand = this.operation = null;
     }
@@ -38,8 +37,7 @@ class Calculator{
     enterOperation(operation){
         if (this.savedOperand == null){
             /*
-            push the current operand to the previous one
-            make the current one empty
+            save the current operand and registers the new one
             */
             this.savedOperand = this.currentOperand;
             this.currentOperand = null
@@ -47,10 +45,9 @@ class Calculator{
         }
         else{
             /*
-            cannot push the current operand to the saved one, so calculate the existing operands,
-            the result of that calculation will be saved to savedOperand, while the current operand will be made null and used to accommodate new inputs
+            if the two operand slots are filled, compute the calculation and take the new operand
             */
-            this.savedOperand = this.calculate();
+            this.savedOperand = String(this.calculate());
             this.currentOperand = null;
             this.operation = operation;
         }  
@@ -62,13 +59,13 @@ class Calculator{
             switch(this.operation)
             {
                 case this.operators.ADD:
-                    return String(Number(this.currentOperand) + Number(this.savedOperand));
+                    return Number(this.currentOperand) + Number(this.savedOperand);
                 case this.operators.SUBTRACT:
-                    return String(Number(this.savedOperand) - Number(this.currentOperand));
+                    return Number(this.savedOperand) - Number(this.currentOperand);
                 case this.operators.MULTIPLY:
-                    return String(Number(this.currentOperand) * Number(this.savedOperand));
+                    return Number(this.currentOperand) * Number(this.savedOperand);
                 case this.operators.DIVIDE:
-                    return String(Number(this.savedOperand) / Number(this.currentOperand));
+                    return Number(this.savedOperand) / Number(this.currentOperand);
                 default:
                     throw new Error("Unknown operator");
             }
@@ -91,7 +88,7 @@ function debug(calculator){
     console.log("saved op: " + calculator.savedOperand);
     console.log("current op: " + calculator.currentOperand);
     console.log("operation: " + calculator.operation);
-    console.log("new calculation: " + calculator.newCalculation);
+    console.log("new calculation?: " + calculator.newCalculation);
     console.log("");
 }
 
@@ -128,3 +125,5 @@ deleteKey.addEventListener('click', () => {
     myCalculator.clearOperands();
     calculatorDisplay.innerText = null;
 })
+
+//TODO: add decimal button and function
