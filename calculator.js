@@ -1,8 +1,12 @@
 "use strict"
 
 
-const numberKeys = document.querySelectorAll('.number');
-const operationKeys = document.querySelectorAll('.operation');
+
+// const numberKeys = document.querySelectorAll('.number');
+const numberKeys = document.querySelectorAll("button[data-type='num']");
+// const operationKeys = document.querySelectorAll('.operation');
+// const operationKeys = document.querySelectorAll("button[data-type='op']");
+const operationKeys = document.querySelectorAll("button[data-op]");
 const calculateKey = document.getElementById('calculate');
 const deleteKey = document.getElementById('delete');
 

@@ -14,22 +14,24 @@
         <div id="result-container"><p>0</p></div>
 
         <div id="keys">
-            <button class="number">0</button>
-            <button id="delete">AC</button>
-            <button class="operation">+</button>
-            <button class="operation">-</button>
-            <button class="number">7</button>
-            <button class="number">8</button>
-            <button class="number">9</button>
-            <button class="operation">×</button>
-            <button class="number">4</button>
-            <button class="number">5</button>
-            <button class="number">6</button>
-            <button class="operation">÷</button>
-            <button class="number">1</button>
-            <button class="number">2</button>
-            <button class="number">3</button>
-            <button id="calculate">=</button>
+
+            <button id="delete" class="wide-button">AC</button>
+            <button data-type='op' data-op='+'>+</button>
+            <button data-type='op' data-op='-'>-</button>
+            <button data-type='num'>7</button>
+            <button data-type='num'>8</button>
+            <button data-type='num'>9</button>
+            <button data-type='op' data-op='×'>×</button>
+            <button data-type='num'>4</button>
+            <button data-type='num'>5</button>
+            <button data-type='num'>6</button>
+            <button class="operation" data-type='op' data-op='÷'>÷</button>
+            <button data-type='num'>1</button>
+            <button data-type='num'>2</button>
+            <button data-type='num'>3</button>
+            <button id="calculate" class="long-button">=</button>
+            <button class="wide-button" data-type='num'>0</button>
+            <button data-type='op' data-op=".">.</button>
         </div>
     </div>
 </body>
