@@ -1,6 +1,5 @@
 "use strict"
 
-// const numberKeys = document.querySelectorAll('.number');
 const numberKeys = document.querySelectorAll("button[data-type='num']");
 // const operationKeys = document.querySelectorAll('.operation');
 // const operationKeys = document.querySelectorAll("button[data-type='op']");
@@ -57,19 +56,20 @@ class Calculator{
         }  
     }
 
+    //TODO: fix bug here
     calculate(){
         if (!(this.currentOperand == null && this.savedOperand == null && this.operation != null))
         {
             switch(this.operation)
             {
                 case this.operators.ADD:
-                    return Number(this.currentOperand) + Number(this.savedOperand);
+                    return parseFloat(this.currentOperand) + parseFloat(this.savedOperand);
                 case this.operators.SUBTRACT:
-                    return Number(this.savedOperand) - Number(this.currentOperand);
+                    return parseFloat(this.savedOperand) - parseFloat(this.currentOperand);
                 case this.operators.MULTIPLY:
-                    return Number(this.currentOperand) * Number(this.savedOperand);
+                    return parseFloat(this.currentOperand) * parseFloat(this.savedOperand);
                 case this.operators.DIVIDE:
-                    return Number(this.savedOperand) / Number(this.currentOperand);
+                    return parseFloat(this.savedOperand) / parseFloat(this.currentOperand);
                 default:
                     throw new Error("Unknown operator");
             }
@@ -77,8 +77,9 @@ class Calculator{
     }
 
     updateOutput(){
-        myCalculator.currentOperand = myCalculator.calculate();
         myCalculator.savedOperand = null;
+        myCalculator.currentOperand = myCalculator.calculate();
+
         /*
         prevents the user from appending digits to the calculated result,
         if the user chooses an operation and enters a new digit, this will be set
