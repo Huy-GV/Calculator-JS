@@ -5,6 +5,7 @@ const numberKeys = document.querySelectorAll("button[data-type='num']");
 // const operationKeys = document.querySelectorAll('.operation');
 // const operationKeys = document.querySelectorAll("button[data-type='op']");
 const operationKeys = document.querySelectorAll("button[data-op]");
+const decimalKey = document.querySelector("#decimal");
 const calculateKey = document.getElementById('calculate');
 const deleteKey = document.getElementById('delete');
 
@@ -19,7 +20,8 @@ class Calculator{
             ADD: '+',
             SUBTRACT: '-',
             MULTIPLY: '×',
-            DIVIDE: '÷'
+            DIVIDE: '÷',
+            DECIMAL: '.'
         })
     }
 
@@ -78,11 +80,19 @@ class Calculator{
         myCalculator.currentOperand = myCalculator.calculate();
         myCalculator.savedOperand = null;
         /*
-        prevent the user from appending digits to the calculated result,
+        prevents the user from appending digits to the calculated result,
         if the user chooses an operation and enters a new digit, this will be set
         to false so that additional digits can be appended to the current one
         */
         myCalculator.newCalculation = true; 
+    }
+
+    addDecimal(){
+        if (this.currentOperand.includes(this.operators.DECIMAL))
+            return;
+        else {
+            this.currentOperand += "."
+        }
     }
 }
 
@@ -126,7 +136,12 @@ calculateKey.addEventListener('click', () => {
 
 deleteKey.addEventListener('click', () => {
     myCalculator.clearOperands();
-    calculatorDisplay.innerText = null;
+    calculatorDisplay.innerText = 0;
 })
 
-//TODO: add decimal button and function
+decimalKey.addEventListener('click', () => {
+    myCalculator.addDecimal();
+    if (!calculatorDisplay.innerText.includes(myCalculator.operators.DECIMAL)){
+        calculatorDisplay.innerText += "."
+    }
+})
