@@ -1,7 +1,5 @@
 "use strict"
 
-
-
 // const numberKeys = document.querySelectorAll('.number');
 const numberKeys = document.querySelectorAll("button[data-type='num']");
 // const operationKeys = document.querySelectorAll('.operation');
@@ -109,7 +107,8 @@ numberKeys.forEach(key => {
 
 operationKeys.forEach(key => {
     key.addEventListener('click', ()=>{
-        myCalculator.enterOperation(key.innerHTML);
+        let operation = key.dataset.op
+        myCalculator.enterOperation(operation);
         calculatorDisplay.innerText = myCalculator.savedOperand;
         debug(myCalculator);
     })
