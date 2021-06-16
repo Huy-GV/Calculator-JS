@@ -14,6 +14,7 @@ const calculatorDisplay = document.querySelector("#result-container p");
 class Calculator{
     constructor(){
         this.savedOperand = this.currentOperand = this.operation = null;
+        // this.displayedNumber = 0;
         this.newCalculation = true;
         this.operators = Object.freeze({
             ADD: '+',
@@ -58,7 +59,7 @@ class Calculator{
 
     //TODO: fix bug here
     calculate(){
-        if (!(this.currentOperand == null && this.savedOperand == null && this.operation != null))
+        if (this.currentOperand && this.savedOperand && this.operation)
         {
             switch(this.operation)
             {
@@ -77,9 +78,9 @@ class Calculator{
     }
 
     updateOutput(){
-        myCalculator.savedOperand = null;
-        myCalculator.currentOperand = myCalculator.calculate();
-
+        //calculates the current operation and save the result in the current operand
+        this.currentOperand = String(myCalculator.calculate());
+        this.savedOperand = null;
         /*
         prevents the user from appending digits to the calculated result,
         if the user chooses an operation and enters a new digit, this will be set
@@ -120,7 +121,6 @@ operationKeys.forEach(key => {
     key.addEventListener('click', ()=>{
         let operation = key.dataset.op
         myCalculator.enterOperation(operation);
-        calculatorDisplay.innerText = myCalculator.savedOperand;
         debug(myCalculator);
     })
 })
@@ -130,7 +130,14 @@ calculateKey.addEventListener('click', () => {
         myCalculator.currentOperand|| 
         myCalculator.operation){
         myCalculator.updateOutput();
-        calculatorDisplay.innerText = myCalculator.currentOperand;
+        let length = (myCalculator.currentOperand).replace('.', '').length; 
+        console.log("Length of result is " + length)
+        let displayedNumber;
+        if (length > 14)
+            displayedNumber = myCalculator.currentOperand.substring(0, 13);
+        else 
+            displayedNumber = myCalculator.currentOperand
+        calculatorDisplay.innerText = displayedNumber;
     }
     debug(myCalculator);
 })
@@ -143,6 +150,6 @@ deleteKey.addEventListener('click', () => {
 decimalKey.addEventListener('click', () => {
     myCalculator.addDecimal();
     if (!calculatorDisplay.innerText.includes(myCalculator.operators.DECIMAL)){
-        calculatorDisplay.innerText += "."
+        calculatorDisplay.innerText += myCalculator.operators.DECIMAL;
     }
 })
