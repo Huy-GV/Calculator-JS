@@ -14,7 +14,6 @@ const calculatorDisplay = document.querySelector("#result-container p");
 class Calculator{
     constructor(){
         this.savedOperand = this.currentOperand = this.operation = null;
-        // this.displayedNumber = 0;
         this.newCalculation = true;
         this.operators = Object.freeze({
             ADD: '+',
@@ -40,24 +39,18 @@ class Calculator{
 
     enterOperation(operation){
         if (this.savedOperand == null){
-            /*
-            save the current operand and registers the new one
-            */
+            //save the current operand and registers the new one
             this.savedOperand = this.currentOperand;
             this.currentOperand = null
             this.operation = operation;
         }
         else{
-            /*
-            if the two operand slots are filled, compute the calculation and take the new operand
-            */
+            //if the two operand slots are filled, compute the calculation and take the new operand
             this.savedOperand = String(this.calculate());
             this.currentOperand = null;
             this.operation = operation;
         }  
     }
-
-    //TODO: fix bug here
     calculate(){
         if (this.currentOperand && this.savedOperand && this.operation)
         {
