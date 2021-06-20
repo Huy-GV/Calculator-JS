@@ -29,7 +29,7 @@ class Calculator{
     }
 
     appendNumber(number){
-        if (this.currentOperand == null || this.newCalculation){
+        if (!this.currentOperand || this.newCalculation){
             this.currentOperand = number;
             this.newCalculation = false;
         }else {
@@ -38,7 +38,7 @@ class Calculator{
     }
 
     enterOperation(operation){
-        if (this.savedOperand == null){
+        if (!this.savedOperand){
             //save the current operand and registers the new one
             this.savedOperand = this.currentOperand;
             this.currentOperand = null
